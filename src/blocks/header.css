@@ -1,0 +1,25 @@
+.header{
+	padding-top: 45px;
+	padding-bottom: 45px;
+	display: flex;
+	border-bottom: 1px solid #545454;
+	justify-content: space-between;
+	align-items: center;
+}
+.header__logo{
+	width: 173px;
+	height:33px
+}
+
+.header__btn{
+	text-decoration: none;
+	font-size: 18px;
+	color: #fff;
+}
+
+@media screen and (max-width: 768px){
+	.header{
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+}
