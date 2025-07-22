@@ -3,16 +3,56 @@ import Footer from './Footer/Footer.jsx'
 import Main from './Main/Main.jsx'
 import Register from './Register/Register.jsx'
 import Login from './Login/Login.jsx'
-import {useState, useEffect} from 'react'
+import NotFound from './NotFound/NotFound.jsx'
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute.jsx'
+import {useState, useEffect, useCallback} from 'react'
 import api from '../utils/api.js'
 import CurrentUserContext from '../contexts/CurrentUserContext.js'
-import {Routes,Route} from 'react-router-dom'
+import {Routes, Route, useNavigate} from 'react-router-dom'
+import { checkToken } from '../utils/auth.js'
 
 function App() {
 	const [currentUser, setCurrentUser] = useState({})
 	const [card, setCard] = useState([])
 	const [popup, setPopup] = useState(null);
 	const [isLoading, setLoading] = useState(false)
+	const [isLoggedIn, setLoggedIn] = useState(false)
+
+	const navigate = useNavigate();
+
+	let handleCheckToken;
+
+	useEffect(() => {
+		handleCheckToken()
+	},[handleCheckToken])
+
+	handleCheckToken = useCallback(async () => {
+		const token = localStorage.getItem("jwt")
+		if(!token){
+			console.log("token not found")
+			navigate('/signin',{replace:true})
+			return;
+		}
+		try {
+			console.log("start loading")
+			const response = await checkToken(token);
+			if(response.status != 200){
+				const message = await response.json();
+				throw new Error(message.error);
+			}
+			const result = await response.json();
+			if(!result.data || !result.data._id){
+				navigate('/signin',{replace:true})
+				throw new Error(`Data not receivied: ${result}`);
+			}
+			setLoggedIn(true)
+			navigate("/", {replace:true});
+		} catch (error) {
+			console.log(error)
+		} finally{
+			console.log("end loading")
+		}
+	},[navigate])
 
 	useEffect(() => {
 		api.getUser()
@@ -97,20 +137,25 @@ function App() {
 				<Header />
 				<Routes>
 					<Route path="/" element={
-						<Main onCardLike={handleCardLike} 
-						onCardDelete={handleCardDelete} 
-						getCardList={getCardList}
-						onAddPlaceSubmit={handleAddPlaceSubmit}
-						cardState={card} 
-						popupState={popup} 
-						setPopupState={setPopup}
-						isLoading={isLoading}/>
+						<ProtectedRoute isLoggedIn={isLoggedIn}>
+							<Main onCardLike={handleCardLike} 
+							onCardDelete={handleCardDelete} 
+							getCardList={getCardList}
+							onAddPlaceSubmit={handleAddPlaceSubmit}
+							cardState={card} 
+							popupState={popup} 
+							setPopupState={setPopup}
+							isLoading={isLoading}/>
+						</ProtectedRoute>
 					} />
 					<Route path="/signup" element={
 						<Register />
 					}/>
 					<Route path="/signin" element={
-						<Login />
+						<Login setLoggedIn={setLoggedIn}/>
+					} />
+					<Route path="*" element={
+						<NotFound />
 					} />
 				</Routes>
 				<Footer />

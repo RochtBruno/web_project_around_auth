@@ -15,8 +15,8 @@ function Header() {
     btnText = 'Faça login';
     btnHref = '/signin'
   } else if( location.pathname === '/signin'){
-    btnText = 'Entrar';
-    btnHref = '/signin'
+    btnText = 'Cadastre-se';
+    btnHref = '/signup'
   } else if(location.pathname === '/'){
     btnText = currentUser.email || 'email not found';
     btnHref = "#"
