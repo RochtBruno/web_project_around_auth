@@ -59,9 +59,9 @@ function Login({setLoggedIn}) {
 					placeholder="Senha"
 					onChange={(e) => {setPassword(e.target.value)}}/>
 
-					<button className="register__btn">Inscrever-se</button>
+					<button className="register__btn">Entrar</button>
 				</form>
-				<a className="login__link" href="/signup">Ainda não é membro? Inscreva-se aqui!</a>
+				<Link className="login__link" to="/signup">Ainda não é membro? Inscreva-se aqui!</Link>
 			</div>
 		</>
 	)

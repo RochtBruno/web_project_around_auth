@@ -1,9 +1,9 @@
 import logo from '../../images/logo.png'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { useContext } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext.js'
 
-function Header() {
+function Header({handleLogout}) {
 
   const location = useLocation()
   const { currentUser } = useContext(CurrentUserContext)
@@ -18,8 +18,7 @@ function Header() {
     btnText = 'Cadastre-se';
     btnHref = '/signup'
   } else if(location.pathname === '/'){
-    btnText = currentUser.email || 'email not found';
-    btnHref = "#"
+    btnText = 'Sair';
   }
 
 
@@ -27,7 +26,11 @@ function Header() {
     <>
       <header className="header">
         <img className="header__logo" src={logo} alt="logo do website" />
-        <a className="header__btn" href={btnHref}>{btnText}</a>
+        {location.pathname === '/' ? (
+          <button className="header__btn-logout" onClick={handleLogout}>{btnText}</button>
+        ) : (
+          <Link className="header__btn" to={btnHref}>{btnText}</Link>
+        )}
       </header>
     </>
   );

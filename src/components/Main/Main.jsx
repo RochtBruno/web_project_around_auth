@@ -17,7 +17,7 @@ function Main({
   popupState,
   setPopupState,
   onAddPlaceSubmit,
-  isLoading
+  isLoading,
 }) {
 
   const {currentUser} = useContext(CurrentUserContext)

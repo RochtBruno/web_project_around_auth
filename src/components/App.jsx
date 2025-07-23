@@ -20,13 +20,14 @@ function App() {
 
 	const navigate = useNavigate();
 
-	let handleCheckToken;
 
-	useEffect(() => {
-		handleCheckToken()
-	},[handleCheckToken])
+	const handleLogout = () => {
+		setLoggedIn(false)
+		localStorage.removeItem("jwt")
+		navigate('/signin',{replace:true})
+	}
 
-	handleCheckToken = useCallback(async () => {
+	const handleCheckToken = useCallback(async () => {
 		const token = localStorage.getItem("jwt")
 		if(!token){
 			console.log("token not found")
@@ -35,14 +36,14 @@ function App() {
 		}
 		try {
 			console.log("start loading")
-			const response = await checkToken(token);
+			const response = await checkToken({token});
 			if(response.status != 200){
 				const message = await response.json();
 				throw new Error(message.error);
 			}
 			const result = await response.json();
 			if(!result.data || !result.data._id){
-				navigate('/signin',{replace:true})
+				handleLogout();
 				throw new Error(`Data not receivied: ${result}`);
 			}
 			setLoggedIn(true)
@@ -59,6 +60,14 @@ function App() {
 		.then((res) => res.json())
 		.then((data) => setCurrentUser(data))
 	},[])
+
+	useEffect(() => {
+		const token = localStorage.getItem("jwt");
+		if (token) {
+			handleCheckToken();
+		}
+
+	}, [localStorage.getItem("jwt")])
 
 	const handleUpdateUser = (name,about) => {
 		setLoading(true)
@@ -134,7 +143,7 @@ function App() {
 	return (
 		<div className="page">
 			<CurrentUserContext.Provider value={{currentUser,handleUpdateUser, handleUpdateAvatar}}>
-				<Header />
+				<Header handleLogout={handleLogout}/>
 				<Routes>
 					<Route path="/" element={
 						<ProtectedRoute isLoggedIn={isLoggedIn}>

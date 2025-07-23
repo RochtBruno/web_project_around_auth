@@ -17,6 +17,13 @@
 	color: #fff;
 }
 
+.header__btn-logout{
+	background-color: #000;
+	color: #fff;
+	border: none;
+	font-size: 18px;
+}
+
 @media screen and (max-width: 768px){
 	.header{
 		padding-left: 2%;
