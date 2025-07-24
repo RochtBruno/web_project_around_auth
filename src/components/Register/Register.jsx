@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx'
 import { register } from '../../utils/auth.js'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -8,6 +8,10 @@ function Register() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorInfo, setErrorInfo] = useState("");
+	const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+    const [tooltipStatus, setTooltipStatus] = useState("success");
+    const [tooltipMessage, setTooltipMessage] = useState("");
+	const [shouldRedirect, setShouldRedirect] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -25,16 +29,33 @@ function Register() {
 			}
 			const result = await response.json();
 			console.log(result)
-			if(!result.data.email || result.data._id){
+			if(!result.data.email || !result.data._id){
 				throw new Error(`Data não recebida: ${result}`);
 			}
-			navigate("/signin", {replace: true});
+			setTooltipStatus("success");
+			setTooltipMessage("Cadastro realizado com sucesso");
+			setIsTooltipOpen(true);
+			setShouldRedirect(true);
+			setEmail("");
+			setPassword("");
 		}catch(error){
-			setErrorInfo(error.message);
+			setTooltipStatus("failure");
+			setTooltipMessage(error.message);
+			setIsTooltipOpen(true);
+			setShouldRedirect(false);
+			setEmail("");
+			setPassword("")
 		}finally{
 			console.log("end loading")
 		}
 	}
+
+	const handleCloseTooltip = () => {
+		setIsTooltipOpen(false);
+		if (shouldRedirect) {
+			navigate("/", {replace:true});
+		}
+	};
 
 	return(
 		<>
@@ -61,6 +82,11 @@ function Register() {
 				</form>
 				<a className="register__link" href="/signin">Já é membro? Faça o login aqui!</a>
 			</div>
+			{isTooltipOpen && (
+				<div className="popup__overlay">
+					<InfoTooltip status={tooltipStatus} message={tooltipMessage} onClose={handleCloseTooltip}/>
+				</div>
+			)}
 		</>
 	)
 }

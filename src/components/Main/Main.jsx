@@ -5,6 +5,7 @@ import Popup from '../Popup/Popup.jsx';
 import EditAvatar from '../EditAvatar/EditAvatar.jsx';
 import EditProfile from '../EditProfile/EditProfile.jsx';
 import NewCard from '../NewCard/NewCard.jsx';
+import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 import DeleteCard from '../DeleteCard/DeleteCard.jsx';
 import Card from '../Card/Card.jsx'
 import CurrentUserContext from '../../contexts/CurrentUserContext.js'

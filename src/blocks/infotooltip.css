@@ -1,0 +1,27 @@
+.close__infotooltip{
+	position: absolute;
+	top: 270px;
+	left: 62%;
+	cursor: pointer;
+}
+
+.infotooltip{
+	position: absolute;
+	margin: 0 auto;
+	width: 430px;
+	height: 330px;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.infotooltip__status{
+
+}
+
+.infotooltip__description{
+
+}
