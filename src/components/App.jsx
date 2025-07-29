@@ -17,6 +17,7 @@ function App() {
 	const [popup, setPopup] = useState(null);
 	const [isLoading, setLoading] = useState(false)
 	const [isLoggedIn, setLoggedIn] = useState(false)
+	const [userEmail, setUserEmail] = useState("")
 
 	const navigate = useNavigate();
 
@@ -46,6 +47,8 @@ function App() {
 				handleLogout();
 				throw new Error(`Data not receivied: ${result}`);
 			}
+			setUserEmail(result.data.email)
+			console.log(result.data.email)
 			setLoggedIn(true)
 			navigate("/", {replace:true});
 		} catch (error) {
@@ -143,7 +146,7 @@ function App() {
 	return (
 		<div className="page">
 			<CurrentUserContext.Provider value={{currentUser,handleUpdateUser, handleUpdateAvatar}}>
-				<Header handleLogout={handleLogout}/>
+				<Header handleLogout={handleLogout} userEmail={userEmail}/>
 				<Routes>
 					<Route path="/" element={
 						<ProtectedRoute isLoggedIn={isLoggedIn}>

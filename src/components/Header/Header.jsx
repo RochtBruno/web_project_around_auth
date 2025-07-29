@@ -1,12 +1,9 @@
 import logo from '../../images/logo.png'
 import { useLocation, Link } from 'react-router-dom'
-import { useContext } from 'react'
-import CurrentUserContext from '../../contexts/CurrentUserContext.js'
 
-function Header({handleLogout}) {
+function Header({handleLogout,userEmail}) {
 
   const location = useLocation()
-  const { currentUser } = useContext(CurrentUserContext)
 
   let btnText = '';
   let btnHref = '';
@@ -21,16 +18,20 @@ function Header({handleLogout}) {
     btnText = 'Sair';
   }
 
-
+ console.log(userEmail)
   return (
     <>
       <header className="header">
         <img className="header__logo" src={logo} alt="logo do website" />
         {location.pathname === '/' ? (
-          <button className="header__btn-logout" onClick={handleLogout}>{btnText}</button>
+         <div className="header__info-wrapper">
+          <p className="header__email">{userEmail}</p>
+           <button className="header__btn-logout" onClick={handleLogout}>{btnText}</button>
+         </div>
         ) : (
           <Link className="header__btn" to={btnHref}>{btnText}</Link>
         )}
+       
       </header>
     </>
   );

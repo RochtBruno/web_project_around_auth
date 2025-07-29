@@ -11,10 +11,24 @@
 	height:33px
 }
 
+.header__info-wrapper{
+	display: flex;
+	gap: 40px;
+}
+
+.header__email{
+	color: #fff;
+	font-size: 18px;
+}
+
 .header__btn{
 	text-decoration: none;
 	font-size: 18px;
 	color: #fff;
+}
+
+.header__btn:hover{
+	opacity: 0.8;
 }
 
 .header__btn-logout{
@@ -22,6 +36,10 @@
 	color: #fff;
 	border: none;
 	font-size: 18px;
+}
+
+.header__btn-logout:hover{
+	opacity: 0.8;
 }
 
 @media screen and (max-width: 768px){
