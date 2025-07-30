@@ -36,7 +36,6 @@ function App() {
 			return;
 		}
 		try {
-			console.log("start loading")
 			const response = await checkToken({token});
 			if(response.status != 200){
 				const message = await response.json();
@@ -48,13 +47,10 @@ function App() {
 				throw new Error(`Data not receivied: ${result}`);
 			}
 			setUserEmail(result.data.email)
-			console.log(result.data.email)
 			setLoggedIn(true)
 			navigate("/", {replace:true});
 		} catch (error) {
 			console.log(error)
-		} finally{
-			console.log("end loading")
 		}
 	},[navigate])
 
@@ -69,7 +65,6 @@ function App() {
 		if (token) {
 			handleCheckToken();
 		}
-
 	}, [localStorage.getItem("jwt")])
 
 	const handleUpdateUser = (name,about) => {

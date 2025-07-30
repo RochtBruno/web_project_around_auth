@@ -18,7 +18,6 @@ function Register() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try{
-			console.log("start loading")
 			if(email == "" || password == ''){
 				throw new Error("Campos vazios não são válidos");
 			}
@@ -28,7 +27,6 @@ function Register() {
 				throw new Error(message.error);
 			}
 			const result = await response.json();
-			console.log(result)
 			if(!result.data.email || !result.data._id){
 				throw new Error(`Data não recebida: ${result}`);
 			}
@@ -45,8 +43,6 @@ function Register() {
 			setShouldRedirect(false);
 			setEmail("");
 			setPassword("")
-		}finally{
-			console.log("end loading")
 		}
 	}
 

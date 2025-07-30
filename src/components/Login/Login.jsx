@@ -18,7 +18,6 @@ function Login({setLoggedIn}) {
 	async function handleLogin(e) {
 		e.preventDefault();
 		try{
-			console.log("start loading")
 			if(email == "" || password == ''){
 				throw new Error("Campos vazios não são válidos");
 			}
@@ -31,9 +30,7 @@ function Login({setLoggedIn}) {
 			if(!result.token){
 				throw new Error(`Data não recebida: ${result}`);
 			}
-			console.log(result.token)
-			localStorage.setItem("jwt",result.token);
-			setLoggedIn(true);
+			localStorage.setItem("temporaryToken", result.token);
 			setTooltipStatus("success");
 			setTooltipMessage("Login realizado com sucesso");
 			setIsTooltipOpen(true);
@@ -45,14 +42,15 @@ function Login({setLoggedIn}) {
 			setShouldRedirect(false);
 			setEmail("");
 			setPassword("")
-		}finally{
-			console.log("end loading")
 		}
 	}
 
 	const handleCloseTooltip = () => {
 		setIsTooltipOpen(false);
 		if (shouldRedirect) {
+			const token = localStorage.getItem("temporaryToken");
+			localStorage.setItem("jwt", token);
+			setLoggedIn(true);
 			navigate("/", {replace:true});
 		}
 	};
@@ -61,7 +59,6 @@ function Login({setLoggedIn}) {
 		<>
 			<div className="login">
 				<h2 className="login__title">Entrar</h2>
-				{/* <p className="login__title">{errorInfo}</p> */}
 				<form className="login__form" action="" onSubmit={handleLogin}>
 
 					<input className="register__input" 
