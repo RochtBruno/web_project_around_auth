@@ -4,87 +4,57 @@ class Api {
 	  this._headers = headers;
 	}
 
+	async _makeRequest(url, method, body){
+		const options = {
+			method,
+			headers: this._headers
+		}
+
+		if(body){
+			options.body = JSON.stringify(body)
+		}
+
+		return fetch(this._baseUrl + url , options)
+		.then((res) =>{
+			if(!res.ok){
+				throw new Error(`Error: ${res.status}`);
+			}
+			return res.json();
+		}).catch(err => console.log(err))
+	}
+
 	getUser(){
-	  return fetch(`${this._baseUrl}/users/me`,{
-		  headers:this._headers
-	  })
+		return this._makeRequest('/users/me');
 	}
 
 	updateUser(name,about){
-	  return fetch(`${this._baseUrl}/users/me`,{
-		  headers: this._headers,
-		  method: "PATCH",
-		  body: JSON.stringify({
-			  name: name,
-			  about: about
-		  })
-	  })
+		return this._makeRequest("/users/me","PATCH",{name: name,about: about})
 	}
 
 	updateAvatar(avatarLink){
-	  return fetch(`${this._baseUrl}/users/me/avatar`,{
-		  headers: this._headers,
-		  method: "PATCH",
-		  body: JSON.stringify({
-			  avatar:avatarLink
-		  })
-	  })
+		return this._makeRequest("/users/me/avatar","PATCH",{avatar: avatarLink})
 	}
 
 	getInitialCards() {
-	  return fetch(`${this._baseUrl}/cards`, {
-		headers: this._headers
-	  })
+		return this._makeRequest("/cards");
 	}
 
 	createCard(card){
-	  return fetch(`${this._baseUrl}/cards`, {
-		  headers: this._headers,
-		  method: "POST",
-		  body: JSON.stringify(card)
-		})
+		return this._makeRequest("/cards","POST",card)
 	}
 
 	deleteCard(cardId){
-	  return fetch(`${this._baseUrl}/cards/${cardId}`,{
-		  headers: this._headers,
-		  method: "DELETE"
-	  })
+		return this._makeRequest(`/cards${cardId}`,"DELETE")
 	}
 
 	addLike(cardId) {
-	  return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-		method: "PUT",
-		headers: this._headers,
-	  })
-		.then((res) => {
-		  if (!res.ok) {
-			return Promise.reject(`Erro ao curtir o cartão: ${res.status}`);
-		  }
-		  return res.json();
-		})
-		.then((data) => {
-		  return data;
-		})
-		.catch(err => console.log("Erro ao curtir card: ",err));
+		return this._makeRequest(`/cards/${cardId}/likes`,"PUT")
 	}
 
 	removeLike(cardId) {
-	  return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-		method: "DELETE",
-		headers: this._headers,
-	  })
-		.then((res) => {
-		  if (!res.ok) {
-			return Promise.reject(`Erro ao remover a curtida: ${res.status}`);
-		  }
-		  return res.json();
-		})
-		.then((data) => {
-		  return data;
-		})
-		.catch(err => console.log("Erro ao descutir card: ",err));
+		return this._makeRequest(`/cards/${cardId}/likes`,"DELETE");
 	}
+	
   }
 
 const api = new Api({

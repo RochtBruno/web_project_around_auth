@@ -56,8 +56,8 @@ function App() {
 
 	useEffect(() => {
 		api.getUser()
-		.then((res) => res.json())
 		.then((data) => setCurrentUser(data))
+		.catch(err => console.log("Erro ao buscar informações do usuário: ",err))
 	},[])
 
 	useEffect(() => {
@@ -70,7 +70,6 @@ function App() {
 	const handleUpdateUser = (name,about) => {
 		setLoading(true)
 		api.updateUser(name,about)
-		.then((res) => res.json())
 		.then((userData) => {
 			setCurrentUser(userData)
 		})
@@ -92,7 +91,6 @@ function App() {
 	const getCardList = () => {
 		setLoading(true)
 		api.getInitialCards()
-			.then((res) => res.json())
 			.then((data) => setCard(data))
 			.catch((err) => console.log("Erro ao buscar cards-> ", err))
 		.finally(() => setLoading(false))
