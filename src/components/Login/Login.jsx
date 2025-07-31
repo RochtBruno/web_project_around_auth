@@ -37,7 +37,11 @@ function Login({setLoggedIn}) {
 			setShouldRedirect(true);
 		}catch(error){
 			setTooltipStatus("failure");
-			setTooltipMessage(error.message);
+			setTooltipMessage(
+				error.message && error.message !== "undefined" 
+				? error.message = "Erro ao fazer login, tente novamente"
+				: "Erro ao fazer login, tente novamente"
+			);
 			setIsTooltipOpen(true);
 			setShouldRedirect(false);
 			setEmail("");

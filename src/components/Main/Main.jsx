@@ -2,10 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import editProfile from '../../images/edit.png';
 import imageAddCard from '../../images/add.png';
 import Popup from '../Popup/Popup.jsx';
-import EditAvatar from '../EditAvatar/EditAvatar.jsx';
-import EditProfile from '../EditProfile/EditProfile.jsx';
+import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup.jsx';
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup.jsx';
 import NewCard from '../NewCard/NewCard.jsx';
-import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 import DeleteCard from '../DeleteCard/DeleteCard.jsx';
 import Card from '../Card/Card.jsx'
 import CurrentUserContext from '../../contexts/CurrentUserContext.js'
@@ -27,8 +26,8 @@ function Main({
 	  getCardList()
   },[])
 
-  const editProfilePopup = { title: 'Editar perfil', children: <EditProfile onClose={handleClosePopup}/> };
-  const editAvatarPopup = { title: 'Atualizar a foto do perfil', children: <EditAvatar onClose={handleClosePopup} /> };
+  const editProfilePopup = { title: 'Editar perfil', children: <EditProfilePopup onClose={handleClosePopup}/> };
+  const editAvatarPopup = { title: 'Atualizar a foto do perfil', children: <EditAvatarPopup onClose={handleClosePopup} /> };
   const newCardPopup = { title: 'Novo local', children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} onClose={handleClosePopup}/> };
 
   const deleteCardPopup = (cardState) => {

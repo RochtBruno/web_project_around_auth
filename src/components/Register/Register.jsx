@@ -7,7 +7,7 @@ function Register() {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [errorInfo, setErrorInfo] = useState("");
+	// const [errorInfo, setErrorInfo] = useState("");
 	const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const [tooltipStatus, setTooltipStatus] = useState("success");
     const [tooltipMessage, setTooltipMessage] = useState("");
@@ -38,7 +38,11 @@ function Register() {
 			setPassword("");
 		}catch(error){
 			setTooltipStatus("failure");
-			setTooltipMessage(error.message);
+			setTooltipMessage(
+				error.message && error.message !== "undefined" 
+				? error.message
+				: "Erro ao cadastrar usuário, tente novamente"
+			);
 			setIsTooltipOpen(true);
 			setShouldRedirect(false);
 			setEmail("");
@@ -57,11 +61,9 @@ function Register() {
 		<>
 			<div className="register">
 				<h2 className="register__title">Inscreva-se</h2>
-				<p className="register__title">{errorInfo}</p>
 				<form className="register__form" action="" onSubmit={handleSubmit}>
-
 					<input className="register__input" 
-					type="text" 
+					type="email" 
 					value={email} 
 					name="email" 
 					placeholder="E-mail" 
