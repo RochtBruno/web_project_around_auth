@@ -86,7 +86,6 @@ function App() {
     setLoading(true);
     api
       .updateAvatar(avatarUrl)
-      .then((res) => res.json())
       .then((userData) => setCurrentUser(userData))
       .catch((err) => console.log("Erro ao mudar avatar", err))
       .finally(() => setLoading(false));
@@ -105,7 +104,6 @@ function App() {
     setLoading(true);
     api
       .createCard(card)
-      .then((res) => res.json())
       .then((newCard) => setCard((prevCards) => [newCard, ...prevCards]))
       .catch((err) => console.log("Erro ao criar card ", err))
       .finally(() => setLoading(false));

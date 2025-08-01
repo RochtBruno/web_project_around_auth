@@ -44,7 +44,7 @@ class Api {
 	}
 
 	deleteCard(cardId){
-		return this._makeRequest(`/cards${cardId}`,"DELETE")
+		return this._makeRequest(`/cards/${cardId}`,"DELETE")
 	}
 
 	addLike(cardId) {

@@ -5,7 +5,6 @@ import Popup from "../Popup/Popup.jsx";
 import EditAvatarPopup from "../EditAvatarPopup/EditAvatarPopup.jsx";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup.jsx";
 import NewCard from "../NewCard/NewCard.jsx";
-import DeleteCard from "../DeleteCard/DeleteCard.jsx";
 import Card from "../Card/Card.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
@@ -23,7 +22,7 @@ function Main({
 
   useEffect(() => {
     getCardList();
-  });
+  },[]);
 
   const editProfilePopup = {
     title: "Editar perfil",
@@ -44,10 +43,13 @@ function Main({
     setPopupState({
       title: "Excluir imagem?",
       children: (
-        <DeleteCard
-          onClose={handleClosePopup}
-          onConfirm={() => onCardDelete(cardState)}
-        />
+        <button
+          type="button"
+          className="popup__btn"
+          onClick={() => onCardDelete(cardState)}
+        >
+          Sim
+        </button>
       ),
     });
   };
