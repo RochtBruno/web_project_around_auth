@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditProfile({ onClose }) {
+function EditProfilePopup({ onClose }) {
   const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
   const [name, setName] = useState(currentUser.name || "");
   const [about, setAbout] = useState(currentUser.about || "");
@@ -56,4 +56,4 @@ function EditProfile({ onClose }) {
   );
 }
 
-export default EditProfile;
+export default EditProfilePopup;

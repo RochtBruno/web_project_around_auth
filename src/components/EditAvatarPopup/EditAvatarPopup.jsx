@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditAvatar({ onClose }) {
+function EditAvatarPopup({ onClose }) {
   const avatarRef = useRef();
   const { handleUpdateAvatar } = useContext(CurrentUserContext);
 
@@ -29,4 +29,4 @@ function EditAvatar({ onClose }) {
   );
 }
 
-export default EditAvatar;
+export default EditAvatarPopup;
