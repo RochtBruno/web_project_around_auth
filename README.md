@@ -1,19 +1,11 @@
-
 # web_project_around_auth
 
-## Descrição
-Este projeto é uma aplicação web de autenticação de usuários, desenvolvida como parte do curso Tripleten. O objetivo é permitir que usuários se cadastrem, façam login e acessem funcionalidades protegidas, além de manipular cards de conteúdo de forma segura.
+## Objetivo do Projeto
 
-## Funcionalidade e Finalidade
-- Cadastro de novos usuários
-- Login com autenticação JWT
-- Logout seguro
-- Exibição de cards (adicionar, remover, curtir)
-- Edição de perfil e avatar
-- Rotas protegidas para usuários autenticados
-- Feedback visual com tooltips de sucesso/erro
+O projeto **web_project_around_auth** tem como objetivo criar uma aplicação web que gerencia autenticação de usuários, permitindo cadastro, login seguro, manipulação de cards e edição de perfil. Ele foi desenvolvido como parte do curso Tripleten visando aplicar conceitos práticos de autenticação, rotas protegidas e manipulação de estados no React.
 
 ## Tecnologias Utilizadas
+
 - React.js
 - Vite
 - JavaScript (ES6+)
@@ -23,3 +15,43 @@ Este projeto é uma aplicação web de autenticação de usuários, desenvolvida
 - Fetch API
 - ESLint
 
+## Principais Desafios
+
+- Implementação do fluxo de autenticação com JWT e proteção de rotas.
+- Tratamento de estados globais usando Context API para autenticação e dados do usuário.
+- Garantir responsividade e modularidade dos componentes.
+- Feedback visual consistente para operações de sucesso e erro.
+- Integração eficiente com API para manipulação de cards (CRUD).
+
+## Aprendizados
+
+- Profundidade prática em autenticação JWT e controle de acesso em aplicações front-end.
+- Gerenciamento avançado de estados e contexto no React.
+- Boas práticas de modularização e reuso de componentes.
+- Integração segura com APIs externas.
+- Melhoria na experiência do usuário através de tooltips e feedback visual.
+
+## Instruções para Rodar Localmente
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/RochtBruno/web_project_around_auth.git
+   cd web_project_around_auth
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+3. **Execute o projeto:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Acesse a aplicação:**
+   Abra o navegador e acesse `http://localhost:5173` (ou a porta informada no terminal).
+
+---
+
+Sinta-se à vontade para sugerir ajustes ou pedir para eu já atualizar o README diretamente no repositório!
